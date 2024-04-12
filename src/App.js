@@ -19,6 +19,7 @@ import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import RBDashboard from './components/RBDashboard';
 import MYDashboard from './components/MYDashboard';
 import SKUDashboard from './components/SKUDashboard';
+import Conversation from './components/Conversation'
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
     { icon: <HomeIcon />, text: 'My Dashboard', link: '/my-dashboard' },
     { icon: <DescriptionIcon />, text: 'RB Dashboard', link: '/rb-dashboard' },
     { icon: <InventoryIcon />, text: 'SKU Dashboard', link: '/sku-dashboard' },
-    { icon: <ChatIcon />, text: 'Chats', link: '/orders' },
+    { icon: <ChatIcon />, text: 'Chats', link: '/conversation' },
     { icon: <HistoryIcon />, text: 'My History', link: '/orders' },
   ];
 
@@ -96,7 +97,7 @@ function App() {
             <Route path="/rb-dashboard" element={<RBDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
             <Route path="/my-dashboard" element={<MYDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
             <Route path="/sku-dashboard" element={<SKUDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
-            {/* Include other routes here */}
+            <Route path="/conversation" element={<Conversation toggleOptions={toggleOptions} showOptions={showOptions} />} />
           </Routes>
          
         </div>
