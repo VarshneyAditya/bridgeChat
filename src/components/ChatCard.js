@@ -46,6 +46,7 @@ function ChatCard() {
               cursor: "pointer",
             }}
             key={id}
+            onClick={() => setChats(!chats)}
           >
             <CardContent>
               <ListItemText
@@ -55,7 +56,6 @@ function ChatCard() {
                   marginTop: "40px",
                   marginLeft: "30px",
                 }}
-                onClick={() => setChats(!chats)}
               />
             </CardContent>
           </Card>
