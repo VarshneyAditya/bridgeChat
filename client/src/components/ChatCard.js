@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ListItemText from "@mui/material/ListItemText";
-import { useOrders } from "../context/OrdersContext";
 import { useNavigate } from "react-router-dom";
 
 function ChatCard() {
   const navigate = useNavigate();
-  const { orderId } = useParams();
-  const { orders } = useOrders();
-  // const chat = orders[orderId];
   const [cards, setCard] = useState([]);
   const [chats, setChats] = useState(false);
 
@@ -31,12 +26,12 @@ function ChatCard() {
 
   useEffect(() => {
     if (chats) navigate("/conversation");
-  }, [chats]);
+  }, [chats, navigate]);
 
   return (
     <>
       {cards &&
-        cards.map(({ id = 32, message = "NA", orderId = "NA" }) => (
+        cards.map(({ id = 32, last_message = "NA", order_id = "NA" }) => (
           <Card
             style={{
               marginTop: "40px",
@@ -50,8 +45,8 @@ function ChatCard() {
           >
             <CardContent>
               <ListItemText
-                primary={`Order Issue#${orderId}`}
-                secondary={`Message: ${message}`}
+                primary={`Order Id: ${order_id}`}
+                secondary={`Message: ${last_message}`}
                 style={{
                   marginTop: "40px",
                   marginLeft: "30px",

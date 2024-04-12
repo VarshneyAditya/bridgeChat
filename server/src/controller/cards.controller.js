@@ -1,3 +1,5 @@
+import Cards from '../model/cards.model.js';
+
 const dummyChats = [
   { id: 1, message: "Hello!", orderId: "12345" },
   { id: 2, message: "Hi there!", orderId: "67890" },
@@ -7,7 +9,8 @@ const dummyChats = [
 
 const cards = async (req, res) => {
   try {
-    res.json({ chats: dummyChats });
+    const data = await Cards.find({});
+    res.json({ chats: data });
   } catch (error) {
     console.log("Error: ", error);
   }
