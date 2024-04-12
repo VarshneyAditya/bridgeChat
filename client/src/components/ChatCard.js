@@ -16,7 +16,7 @@ function ChatCard() {
 
   useEffect(() => {
     const fetchChat = async () => {
-      const response = await fetch(`http://localhost:5000/Chats`, {
+      const response = await fetch(`http://localhost:3000/api/cards`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
