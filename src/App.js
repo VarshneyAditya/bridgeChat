@@ -16,12 +16,14 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+
 import RBDashboard from './components/RBDashboard';
 import MYDashboard from './components/MYDashboard';
 import SKUDashboard from './components/SKUDashboard';
 import Chats from './components/Chats';
 import ChatCard from './components/ChatCard';
 import { OrdersProvider } from './context/OrdersContext';
+import Conversation from './components/Conversation';
 
 
 
@@ -104,8 +106,7 @@ function App() {
             <Route path="/chats" element={<Chats toggleOptions={toggleOptions} showOptions={showOptions} />} />
             <Route path="/my-history" />
             <Route path="/chat/:orderId" element={<ChatCard />} />
-
-
+            <Route path="/conversation" element={<Conversation />} />
             {/* Include other routes here */}
           </Routes>
          
