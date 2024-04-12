@@ -40,7 +40,7 @@ function App() {
     { icon: <HomeIcon />, text: 'My Dashboard', link: '/my-dashboard' },
     { icon: <DescriptionIcon />, text: 'RB Dashboard', link: '/rb-dashboard' },
     { icon: <InventoryIcon />, text: 'SKU Dashboard', link: '/sku-dashboard' },
-    { icon: <ChatIcon />, text: 'Chats', link: '/Chats' },
+    { icon: <ChatIcon />, text: 'Chats', link: '/chats' },
     { icon: <HistoryIcon />, text: 'My History', link: '/my-history' },
   ];
 
@@ -103,9 +103,9 @@ function App() {
             <Route path="/rb-dashboard" element={<RBDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
             <Route path="/my-dashboard" element={<MYDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
             <Route path="/sku-dashboard" element={<SKUDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
-            <Route path="/chats" element={<Chats toggleOptions={toggleOptions} showOptions={showOptions} />} />
+            {/* <Route path="/chats" element={<Chats toggleOptions={toggleOptions} showOptions={showOptions} />} /> */}
             <Route path="/my-history" />
-            <Route path="/chat/:orderId" element={<ChatCard />} />
+            <Route path="/chats" element={<ChatCard />} />
             <Route path="/conversation" element={<Conversation />} />
             {/* Include other routes here */}
           </Routes>

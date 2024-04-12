@@ -9,16 +9,15 @@ app.use(cors());
 app.use(bodyParser.json()); // For parsing application/json
 
 const dummyChats = [
-  { id: 1, message: 'Hello!', order_id: '12345' },
-  { id: 2, message: 'Hi there!', order_id: '67890' },
-  { id: 3, message: 'How are you?', order_id: 'ABCDE' },
+  { id: 1, message: 'Hello!', orderId: '12345' },
+  { id: 2, message: 'Hi there!', orderId: '67890' },
+  { id: 3, message: 'How are you?', orderId: 'ABCDE' },
+  { id: 4, message: 'I am good', orderId: 'test' },
 ];
 
 // Route to handle POST requests
 app.post('/Chats', (req, res) => {
-  const { orderId } = req.body;
-  const chatsForOrder = dummyChats.filter(chat => chat.order_id === orderId);
-  res.json({ chats: chatsForOrder });
+  res.json({ chats: dummyChats });
 });
 
 app.listen(port, () => {

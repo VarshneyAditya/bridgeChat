@@ -11,7 +11,7 @@ function ChatCard() {
   const { orderId } = useParams();
   const { orders } = useOrders();
   // const chat = orders[orderId];
-  const [chat, setChat] = useState({});
+  const [cards, setCard] = useState([]);
   const [chats, setChats] = useState(false);
 
   useEffect(() => {
@@ -21,39 +21,45 @@ function ChatCard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ orderId }),
       });
-      const data = await response.json();
-      setChat(data.chats);
+      const { chats = [] } = await response.json();
+      setCard(chats);
     };
 
     fetchChat();
-  }, [orderId]);
+  }, []);
 
   useEffect(() => {
-    if(chats) navigate("/conversation");
+    if (chats) navigate("/conversation");
   }, [chats]);
 
   return (
     <>
-      <Card
-        style={{
-          marginTop: "40px",
-          marginLeft: "30px",
-          marginRight: "40px",
-          borderRadius: "40px",
-        }}
-      >
-        <CardContent>
-          <ListItemText
-            // key={}
-            primary={`Order Issue#${12345}`}
-            secondary={`Message: ${"Hello"}`}
-            style={{ marginTop: "40px", marginLeft: "30px", cursor: "pointer" }}
-            onClick={() => setChats(!chats)}
-          />
-        </CardContent>
-      </Card>
+      {cards &&
+        cards.map(({ id = 32, message = "NA", orderId = "NA" }) => (
+          <Card
+            style={{
+              marginTop: "40px",
+              marginLeft: "30px",
+              marginRight: "40px",
+              borderRadius: "40px",
+              cursor: "pointer",
+            }}
+            key={id}
+          >
+            <CardContent>
+              <ListItemText
+                primary={`Order Issue#${orderId}`}
+                secondary={`Message: ${message}`}
+                style={{
+                  marginTop: "40px",
+                  marginLeft: "30px",
+                }}
+                onClick={() => setChats(!chats)}
+              />
+            </CardContent>
+          </Card>
+        ))}
     </>
   );
 }
