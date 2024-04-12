@@ -19,6 +19,10 @@ import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import RBDashboard from './components/RBDashboard';
 import MYDashboard from './components/MYDashboard';
 import SKUDashboard from './components/SKUDashboard';
+import Chats from './components/Chats';
+import ChatCard from './components/ChatCard';
+import { OrdersProvider } from './context/OrdersContext';
+
 
 
 function App() {
@@ -34,8 +38,8 @@ function App() {
     { icon: <HomeIcon />, text: 'My Dashboard', link: '/my-dashboard' },
     { icon: <DescriptionIcon />, text: 'RB Dashboard', link: '/rb-dashboard' },
     { icon: <InventoryIcon />, text: 'SKU Dashboard', link: '/sku-dashboard' },
-    { icon: <ChatIcon />, text: 'Chats', link: '/orders' },
-    { icon: <HistoryIcon />, text: 'My History', link: '/orders' },
+    { icon: <ChatIcon />, text: 'Chats', link: '/Chats' },
+    { icon: <HistoryIcon />, text: 'My History', link: '/my-history' },
   ];
 
   // A basic sidebar with search
@@ -78,6 +82,7 @@ function App() {
   );
 
   return (
+    <OrdersProvider>
     <Router>
       <div style={{ display: 'flex' }}>
         <Sidebar />
@@ -96,12 +101,18 @@ function App() {
             <Route path="/rb-dashboard" element={<RBDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
             <Route path="/my-dashboard" element={<MYDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
             <Route path="/sku-dashboard" element={<SKUDashboard toggleOptions={toggleOptions} showOptions={showOptions} />} />
+            <Route path="/chats" element={<Chats toggleOptions={toggleOptions} showOptions={showOptions} />} />
+            <Route path="/my-history" />
+            <Route path="/chat/:orderId" element={<ChatCard />} />
+
+
             {/* Include other routes here */}
           </Routes>
          
         </div>
       </div>
     </Router>
+    </OrdersProvider>
   );
 }
 
