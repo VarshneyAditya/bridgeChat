@@ -4,6 +4,8 @@ import CardContent from "@mui/material/CardContent";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 
+import CreateIssueButton from "./CreateIssueButton/CreateIssueButton";
+
 function ChatCard() {
   const navigate = useNavigate();
   const [cards, setCard] = useState([]);
@@ -31,6 +33,7 @@ function ChatCard() {
 
   return (
     <>
+    <CreateIssueButton />
       {cards &&
         cards.map(({ id = 32, last_message = "NA", order_id = "NA" }) => (
           <Card

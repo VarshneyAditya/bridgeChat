@@ -3,11 +3,9 @@ import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
-import { useOrders } from '../context/OrdersContext';
 
 
 function Chats() {
-  const { addOrder } = useOrders();
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const dummyOrders = ['12345', '67890', 'ABCDE'];

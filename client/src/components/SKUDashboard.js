@@ -36,16 +36,6 @@ function SKUDashboard({ toggleOptions, showOptions }) {
               </Grid>
               
             </Grid>
-        {/* Main large square-shaped button */}
-        <div style={{ marginBottom: 20, marginTop: 40, marginLeft: 800 }}>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: '#8E1A86', padding: '20px 40px' }} // Adjust padding to achieve desired square size
-            onClick={toggleOptions}
-          >
-            Create Issue
-          </Button>
-        </div>
         {/* Conditionally rendered option buttons */}
         {showOptions && (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
