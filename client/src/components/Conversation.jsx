@@ -6,25 +6,23 @@ import MessageSelf from "./Messages/MessageSelf";
 import { IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import ThreeDotsButton from "./ThreeDots/ThreeDotsButton";
-
+import { useParams } from "react-router-dom";
 
 const Conversation = () => {
+  const { orderId } = useParams();
   return (
     <>
       <div className="header">
         <div className={"chat-header"}>
-          <h2 style={{ marginTop: '20px', fontFamily: 'monospace' }}>
-            <span style={{fontFamily: 'serif', fontWeight: 'lighter'}}>Order Id:</span> #K1D8FA-J{" "}
+          <h2 style={{ marginTop: "20px", fontFamily: "monospace" }}>
+            <span style={{ fontFamily: "serif", fontWeight: "lighter" }}>
+              Order Id:
+            </span>{" "}
+            {orderId}{" "}
           </h2>
           <ThreeDotsButton />
         </div>
       </div>
-      {/* <span className="sender">
-        <span className="messageBox">Hi</span>
-        </span>
-        <span className="receiver">
-        <span className="messageBox">How are you</span>
-      </span> */}
       <div className="messages-container">
         <MessageSelf msg={"Hello, testing testing "} />
         <MessageOthers msg={"Hey, How are you?"} />

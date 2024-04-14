@@ -106,7 +106,7 @@ function App() {
             {/* <Route path="/chats" element={<Chats toggleOptions={toggleOptions} showOptions={showOptions} />} /> */}
             <Route path="/my-history" />
             <Route path="/chats" element={<ChatCard />} />
-            <Route path="/conversation" element={<Conversation />} />
+            <Route path="/conversation/:orderId" element={<Conversation />} />
             {/* Include other routes here */}
           </Routes>
          

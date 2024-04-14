@@ -8,6 +8,7 @@ function ChatCard() {
   const navigate = useNavigate();
   const [cards, setCard] = useState([]);
   const [chats, setChats] = useState(false);
+  const [orderId, setOrderId] = useState("");
 
   useEffect(() => {
     const fetchChat = async () => {
@@ -25,8 +26,8 @@ function ChatCard() {
   }, []);
 
   useEffect(() => {
-    if (chats) navigate("/conversation");
-  }, [chats, navigate]);
+    if (chats) navigate(`/conversation/${orderId}`);
+  }, [chats, navigate, orderId]);
 
   return (
     <>
@@ -41,7 +42,10 @@ function ChatCard() {
               cursor: "pointer",
             }}
             key={id}
-            onClick={() => setChats(!chats)}
+            onClick={() => {
+              setOrderId(order_id);
+              setChats(!chats);
+            }}
           >
             <CardContent>
               <ListItemText
