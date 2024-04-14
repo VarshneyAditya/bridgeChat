@@ -31,7 +31,7 @@ function Login() {
       };
 
       const response = await axios.post(
-        "http://localhost:8080/user/login/",
+        "http://localhost:3000/api/users/login",
         data,
         config
       );
@@ -39,7 +39,7 @@ function Login() {
       setLogInStatus({ msg: "Success", key: Math.random() });
       setLoading(false);
       localStorage.setItem("userData", JSON.stringify(response));
-      navigate("/app/welcome");
+      navigate("/my-dashboard");
     } catch (error) {
       setLogInStatus({
         msg: "Invalid User name or Password",
@@ -59,13 +59,13 @@ function Login() {
       };
 
       const response = await axios.post(
-        "http://localhost:8080/user/register/",
+        "http://localhost:3000/api/users/sign-up",
         data,
         config
       );
       console.log(response);
       setSignInStatus({ msg: "Success", key: Math.random() });
-      navigate("/app/welcome");
+      navigate("/my-dashboard");
       localStorage.setItem("userData", JSON.stringify(response));
       setLoading(false);
     } catch (error) {
@@ -134,7 +134,7 @@ function Login() {
               variant="outlined"
               color="secondary"
               onClick={loginHandler}
-              isLoading
+              loading
             >
               Login
             </Button>
