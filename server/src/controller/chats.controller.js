@@ -1,11 +1,12 @@
 import Chat from '../model/chats.model.js';
 import User from '../model/user.model.js';
+import Message from '../model/messages.model.js'; // mandatory import
 
 const getAllChats = async (req, res) => {
   try {
 
     // Fetch chats the user is part of, populate necessary fields, and sort results
-    let chats = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+    let chats = await Chat.find({ users: { $elemMatch: { $eq: req.body.user._id } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
