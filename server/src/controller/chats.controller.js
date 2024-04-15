@@ -6,7 +6,7 @@ const getAllChats = async (req, res) => {
   try {
 
     // Fetch chats the user is part of, populate necessary fields, and sort results
-    let chats = await Chat.find({ users: { $elemMatch: { $eq: req.body.user._id } } })
+    let chats = await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
