@@ -17,7 +17,6 @@ const messageSchema = new Schema(
     receiver: {
       type: Schema.Types.ObjectId,
       ref: 'users',
-      required: true,
     },
     chat: {
       type: Schema.Types.ObjectId,

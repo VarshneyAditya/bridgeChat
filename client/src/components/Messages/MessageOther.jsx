@@ -2,7 +2,7 @@ import React from "react";
 
 import "../myStyle.css";
 
-function MessageOthers({ msg, name }) {
+function MessageOthers({ msg, name, updatedAt }) {
   return (
     <div className={"other-message-container"}>
       <div className={"conversation-container"}>
@@ -16,7 +16,7 @@ function MessageOthers({ msg, name }) {
           <p className={"con-lastMessage"}>
             {msg}
           </p>
-          {/* <p className="self-timeStamp">12:00am</p> */}
+          <p className="self-timeStamp">12:00am</p>
         </div>
       </div>
     </div>

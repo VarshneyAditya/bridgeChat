@@ -12,9 +12,6 @@ const getAllChats = async (req, res) => {
       .populate("latestMessage")
       .sort({ updatedAt: -1 });
 
-    console.log("Fetch Chats API:", chats);
-
-
     // Populate latestMessage.sender with user data
     chats = await User.populate(chats, {
       path: "latestMessage.sender",

@@ -36,7 +36,6 @@ const login = async (req, res) => {
     };
     return res.status(200).send(response);
   } catch (err) {
-    console.log("Error:", err);
     // Return 401 error in case of an exception
     return res.status(401).send(err);
   }
