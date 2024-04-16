@@ -48,7 +48,7 @@ function ChatCard(props) {
   };
 
   const getSecondaryMessage = (latestMessage) => {
-    const { content } = latestMessage;
+    const { content = "" } = latestMessage || {};
     return content ? content : "No chat thread";
   };
 

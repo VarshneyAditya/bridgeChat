@@ -22,7 +22,6 @@ function Login() {
 
   const loginHandler = async (e) => {
     setLoading(true);
-    console.log(data);
     try {
       const config = {
         headers: {
@@ -35,7 +34,6 @@ function Login() {
         data,
         config
       );
-      console.log("Login : ", response);
       setLogInStatus({ msg: "Success", key: Math.random() });
       setLoading(false);
       localStorage.setItem("userData", JSON.stringify(response));
@@ -63,13 +61,11 @@ function Login() {
         data,
         config
       );
-      console.log(response);
       setSignInStatus({ msg: "Success", key: Math.random() });
       navigate("/my-dashboard");
       localStorage.setItem("userData", JSON.stringify(response));
       setLoading(false);
     } catch (error) {
-      console.log(error);
       if (error.response?.status === 405) {
         setLogInStatus({
           msg: "User with this email ID already Exists",
@@ -110,7 +106,6 @@ function Login() {
               name="name"
               onKeyDown={(event) => {
                 if (event.code === "Enter") {
-                  // console.log(event);
                   loginHandler();
                 }
               }}
@@ -125,7 +120,6 @@ function Login() {
               name="password"
               onKeyDown={(event) => {
                 if (event.code === "Enter") {
-                  // console.log(event);
                   loginHandler();
                 }
               }}
@@ -167,7 +161,6 @@ function Login() {
               helperText=""
               onKeyDown={(event) => {
                 if (event.code === "Enter") {
-                  // console.log(event);
                   signUpHandler();
                 }
               }}
@@ -181,7 +174,6 @@ function Login() {
               name="email"
               onKeyDown={(event) => {
                 if (event.code === "Enter") {
-                  // console.log(event);
                   signUpHandler();
                 }
               }}
@@ -196,7 +188,6 @@ function Login() {
               name="password"
               onKeyDown={(event) => {
                 if (event.code === "Enter") {
-                  // console.log(event);
                   signUpHandler();
                 }
               }}
