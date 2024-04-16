@@ -3,38 +3,20 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 import CreateIssueButton from "./CreateIssueButton/CreateIssueButton";
 
-function ChatCard() {
+function ChatCard(props) {
   const navigate = useNavigate();
-  const [cards, setCard] = useState([]);
-  const [chats, setChats] = useState(false);
-  const [orderId, setOrderId] = useState("");
   const userData = JSON.parse(localStorage.getItem("userData"));
 
-
   const [conversations, setConversations] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   const user = userData?.data;
   const userId = user?._id;
 
   useEffect(() => {
-    const fetchChat = async () => {
-      const response = await fetch(`http://localhost:3000/api/cards/cards`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const { chats = [] } = await response.json();
-      setCard(chats);
-    };
-
-    fetchChat();
-
     const fetchConversations = async () => {
       try {
         const config = {
@@ -43,12 +25,11 @@ function ChatCard() {
           },
         };
 
-        const response = await axios.get(
+        const { data = [] } = await axios.get(
           "http://localhost:3000/api/chats/conversation",
           config
         );
-
-        console.log("Data refresh in sidebar:", response);
+        setConversations(data);
         // setConversations(response.data);
       } catch (error) {
         console.error("Error fetching conversations:", error);
@@ -57,43 +38,60 @@ function ChatCard() {
     };
 
     fetchConversations();
-  }, []);
+  }, [user.token]);
 
-  useEffect(() => {
-    if (chats) navigate(`/conversation/${orderId}`);
-  }, [chats, navigate, orderId]);
+  const getPrimaryName = (users, isGroupChat, chatName) => {
+    const { name: user0Name, _id: user0Id } = users[0];
+    const userName = user0Id !== userId ? user0Name : users[1].name;
+    const name = isGroupChat ? chatName : userName;
+    return name;
+  };
+
+  const getSecondaryMessage = (latestMessage) => {
+    const { content } = latestMessage;
+    return content ? content : "No chat thread";
+  };
 
   return (
     <>
-    <CreateIssueButton />
-      {cards &&
-        cards.map(({ id = 32, last_message = "NA", order_id = "NA" }) => (
-          <Card
-            style={{
-              marginTop: "40px",
-              marginLeft: "30px",
-              marginRight: "40px",
-              borderRadius: "40px",
-              cursor: "pointer",
-            }}
-            key={id}
-            onClick={() => {
-              setOrderId(order_id);
-              setChats(!chats);
-            }}
-          >
-            <CardContent>
-              <ListItemText
-                primary={`Order Id: ${order_id}`}
-                secondary={`Message: ${last_message}`}
-                style={{
-                  marginTop: "40px",
-                  marginLeft: "30px",
-                }}
-              />
-            </CardContent>
-          </Card>
-        ))}
+      <CreateIssueButton />
+      {conversations &&
+        conversations.map(
+          ({
+            _id = 0,
+            users = 32,
+            latestMessage = "NA",
+            isGroupChat = false,
+            chatName,
+          }) => (
+            <Card
+              style={{
+                marginTop: "40px",
+                marginLeft: "30px",
+                marginRight: "40px",
+                borderRadius: "40px",
+                cursor: "pointer",
+              }}
+              key={_id}
+              onClick={() => {
+                setConversations(!conversations);
+                navigate(`/conversation/${_id}&${getPrimaryName(users, isGroupChat, chatName)}`);
+              }}
+            >
+              <CardContent>
+                <ListItemText
+                  primary={getPrimaryName(users, isGroupChat, chatName)}
+                  secondary={getSecondaryMessage(latestMessage)}
+                  style={{
+                    marginTop: "40px",
+                    marginLeft: "30px",
+                  }}
+                  secondaryTypographyProps={{ style: { fontStyle: 'italic' } }}
+                />
+              </CardContent>
+            </Card>
+          )
+        )}
     </>
   );
 }

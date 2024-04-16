@@ -5,7 +5,6 @@ import { protect } from "../middleware/authMiddleware.js";
 
 const chatsRouter = Router();
 
-chatsRouter.route('/conversation')
-.get(protect, getAllChats)
+chatsRouter.route("/conversation").get(protect, getAllChats);
 
 export default chatsRouter;

@@ -2,16 +2,16 @@ import React from "react";
 
 import "../myStyle.css";
 
-function MessageOthers({ msg }) {
+function MessageOthers({ msg, name }) {
   return (
     <div className={"other-message-container"}>
       <div className={"conversation-container"}>
         <p className={"con-icon"}>
-          {'A'}
+          {name[0]}
         </p>
         <div className={"other-text-content"}>
           <p className={"con-title"}>
-            {'Abhishek'}
+            {name}
           </p>
           <p className={"con-lastMessage"}>
             {msg}

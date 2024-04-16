@@ -32,6 +32,7 @@ function App() {
 }
 
 function AppContent() {
+  const {data: { name: userName = ' '} = {}} = JSON.parse(localStorage.getItem("userData")) || {};
   const navigate = useNavigate();
   const location = useLocation(); // Use useLocation() within the <Router> context
   const isLoginRoute = location.pathname === "/login";
@@ -58,7 +59,7 @@ function AppContent() {
           >
             <Toolbar variant="dense">
               <Typography variant="h6" color="inherit">
-                BugBridge Chatter
+                Welcome {userName}!
               </Typography>
             </Toolbar>
             <IconButton
@@ -80,7 +81,7 @@ function AppContent() {
           <Route path="/sku-dashboard" element={<SKUDashboard />} />
           <Route path="/chats" element={<ChatCard />} />
           <Route path="/my-history" />
-          <Route path="/conversation/:orderId" element={<Conversation />} />
+          <Route path="/conversation/:_id" element={<Conversation />} />
         </Routes>
       </div>
     </div>
