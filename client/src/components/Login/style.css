@@ -103,15 +103,14 @@
     font-size: 2rem;
     font-weight: bolder;
     color: white;
-    height: 48px;
-    width: 48px;
+    height: 45px;
+    width: 45px;
     padding: 2px;
   
     border-radius: 50%;
     justify-self: center;
     align-self: center;
-    margin-left: 10px;
-    margin-right: 5px;
+    margin: -47px 5px 0px 10px;
     color: rgb(244, 246, 248);
   }
   
@@ -151,8 +150,9 @@
   {
     color: black;
     font-size:medium;
-    /* font-style: normal; */
-    /* font-weight: bold; */
+    margin: 8px 0px 0px 0px;
+    max-width: 405px;
+    overflow-wrap: break-word;
   }
   
   .con-timeStamp {
@@ -211,7 +211,7 @@
     scrollbar-color: #888 transparent;
     position: relative; /* Add position relative */
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    max-height: calc(100vh - 200px); /* Set a fixed height */
+    max-height: calc(100vh - 283px); /* Set a fixed height */
     flex-shrink: 0;
   }
   
@@ -225,14 +225,14 @@
   .text-input-area {
     background-color: white;
   padding: 10px 10px;
-  border-radius: 20px;
+  border-radius: 14px;
   display: flex;
   justify-content: space-between; /* Ensure elements are spaced apart */
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   position: sticky;
   bottom: 0;
-  margin: 10px;
+  margin: 18px 10px 0px 12px;
   z-index: 1; /* Ensure it's above messages */
   flex-shrink: 0; /* Prevent shrinking */
   }
@@ -244,23 +244,13 @@
     margin-left: 10px; /* Adjust margin to space the icon from the input */
   }
   
-  
-  /* Adjust margin to create space between messages */
-  .self-message-container .messageBox {
-    margin-left: 50px; /* Adjust margin for self messages */
-  }
-  
   .other-message-container .other-text-content {
     margin-right: 50px; /* Adjust margin for other messages */
-  }
-  .self-message-container {
-    display: flex;
-    justify-content: flex-end; /* Align self messages to the right side */
   }
   
   .other-message-container {
     display: flex;
-    margin-top: 5px; 
+    margin: 10px; 
   }
   
   
@@ -268,24 +258,32 @@
     background-color: rgb(244, 246, 248);
     padding: 10px 10px;
     margin: 5px;
-    border-radius: 20px;
+    border-radius: 10px;
     width: max-content;
-    margin-top: 10px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
   }
   
   .self-message-container {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 50px; /* Reduce margin between self messages */
+    flex-direction: column; /* This stacks the timestamp and message box vertically */
+    align-items: flex-end; /* This aligns the items to the end of the container */
+    margin-bottom: 50px; /* Margin between each container */
+    
+}
 
-  }
+.self-message-container .messageBox {
+    margin-top: 5px;
+    max-width: 405px;
+    overflow-wrap: break-word;
+}
+
   
   .messageBox {
     display: flex;
     flex-direction: column;
-    background-color: #63d7b0;
+    background-color: rgb(200 250 214);
     width: max-content;
     padding: 10px 10px;
     margin: 5px;
@@ -298,6 +296,8 @@
     font-size: 0.75rem;
     font-weight: lighter;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(145, 158, 171);
+    margin: 0px 10px 0px 9px;
   }
   
   .welcome-logo {
@@ -522,16 +522,10 @@
       width: 100vw;
     }
   }
-.messageBox {
-  background: rgb(200 250 214);
-}
 
 .messageBox {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.messageBox {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .messageBox:hover {

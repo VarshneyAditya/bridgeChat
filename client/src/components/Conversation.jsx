@@ -91,7 +91,7 @@ const Conversation = () => {
       <div className="header">
         <div className={"chat-header"}>
           <div style={{ display: "flex" }}>
-            <p className={"con-icon"}>{chatUser[0]}</p>
+            <p className={"con-icon"} style={{margin: "0px"}}>{chatUser[0]}</p>
             <h2 style={{ alignContent: "center", marginLeft: "7px", fontFamily: "monospace" }}>
               {chatUser}{" "}
             </h2>
