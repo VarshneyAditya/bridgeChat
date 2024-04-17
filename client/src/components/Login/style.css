@@ -112,7 +112,7 @@
     align-self: center;
     margin-left: 10px;
     margin-right: 5px;
-    color: #95007fc2;
+    color: rgb(244, 246, 248);
   }
   
   .con-title {
@@ -265,7 +265,7 @@
   
   
   .other-text-content {
-    background-color: #d9d9d9;
+    background-color: rgb(244, 246, 248);
     padding: 10px 10px;
     margin: 5px;
     border-radius: 20px;
@@ -523,7 +523,7 @@
     }
   }
 .messageBox {
-  background: linear-gradient(135deg, #ac63d7, #39024dc2);
+  background: rgb(200 250 214);
 }
 
 .messageBox {

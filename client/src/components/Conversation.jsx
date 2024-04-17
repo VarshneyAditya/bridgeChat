@@ -90,9 +90,9 @@ const Conversation = () => {
     <>
       <div className="header">
         <div className={"chat-header"}>
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <p className={"con-icon"}>{chatUser[0]}</p>
-            <h2 style={{ marginTop: "30px", fontFamily: "monospace" }}>
+            <h2 style={{ alignContent: "center", marginLeft: "7px", fontFamily: "monospace" }}>
               {chatUser}{" "}
             </h2>
           </div>
@@ -119,7 +119,7 @@ const Conversation = () => {
           className={"icon"}
           onClick={() => {
             sendMessage();
-            setMsgContent("")
+            setMsgContent("");
           }}
         >
           <SendIcon />

@@ -218,6 +218,7 @@ html {
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
+  z-index: 1;
 }
 
 #container #menu-wrap .toggler:checked ~ .menu ul .link {
