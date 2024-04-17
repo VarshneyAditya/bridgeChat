@@ -15,11 +15,6 @@
     cursor: pointer;
 }
 
-.self-message-container {
-    display: flex;
-    justify-content: flex-end;
-}
-
 .messageBox {
     display: flex;
     flex-direction: column;
@@ -31,31 +26,12 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.other-message-container .conversation-container:hover {
-    background-color: white;
-}
-
 .other-message-container .con-lastMessage {
     color: black;
     font-size: medium;
     margin: 0px;
     /* font-style: normal; */
     /* font-weight: bold; */
-}
-
-.conversation-container {
-    display: grid;
-    grid-template-columns: 48px auto;
-    grid-template-rows: auto auto;
-    column-gap: 10px;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 10px;
-    box-sizing: border-box;
-}
-
-.conversation-container:hover {
-    background-color: #d9d9d9;
 }
 
 .con-icon {
@@ -84,17 +60,6 @@
     color: #95007fc2;
 }
 
-.other-text-content {
-    background-color: #d9d9d9;
-    padding: 10px 10px;
-    margin: 5px;
-    border-radius: 20px;
-    width: max-content;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
 .con-title {
     grid-area: 1/2/2/4;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -103,41 +68,6 @@
     text-transform: capitalize;
     margin: 0px;
 }
-
-.messages-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    background-color: white;
-    padding: 10px 10px;
-    margin: 10px;
-    border-radius: 20px;
-    overflow: scroll;
-    scrollbar-width: none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    height: 70%;
-}
-
-.text-input-area {
-    background-color: white;
-    padding: 10px 10px;
-    margin: 10px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-  }
-
-  .search-box {
-    outline-width: 0;
-    border: none;
-    margin-left: 10px;
-    font-size: 1.25rem;
-    color: rgba(0, 0, 0, 0.54);
-    width: 100%;
-  }
 
   .chat-header {
     background-color: white;
