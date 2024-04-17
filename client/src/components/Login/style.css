@@ -245,7 +245,8 @@
   }
   
   .other-message-container .other-text-content {
-    margin-right: 50px; /* Adjust margin for other messages */
+    margin-right: 50px;
+    padding: 12px;
   }
   
   .other-message-container {
@@ -277,6 +278,7 @@
     margin-top: 5px;
     max-width: 405px;
     overflow-wrap: break-word;
+    padding: 12px;
 }
 
   
