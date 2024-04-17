@@ -1,56 +1,66 @@
 import React from 'react';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography, Paper } from "@mui/material";
+import Container from '@mui/material/Container';
+import AppWidgetSummary from '../components/overview/app-widget-summary';
+import { styled } from '@mui/material/styles';
+
+const HoverPaper = styled(Paper)(({ theme }) => ({
+  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.05)',
+    boxShadow: theme.shadows[10]
+  }
+}));
+
+// Styled Typography for attractive heading
+const StyledHeading = styled(Typography)(({ theme }) => ({
+  fontWeight: 'bold',
+  color: theme.palette.primary.main,
+  background: 'rgb(112 52 132)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  fontSize: '2.5rem',
+  textAlign: 'center',
+  padding: theme.spacing(3),
+  marginBottom: theme.spacing(5),
+  boxShadow: theme.shadows[3],
+  borderRadius: theme.shape.borderRadius,
+}));
+
 
 function RBDashboard({ toggleOptions, showOptions }) {
   return (
     <>
-      <Typography variant="h4" style={{ marginTop: 20, marginBottom: 50, marginLeft: 400 }}>RB DASHBOARD</Typography>
-       {/* Content Grid */}
-       <Grid container spacing={2}>
-            {/* First Row */}
-            <Grid item xs={4}>
-              <div style={{ backgroundColor: '#f5f5f5', padding: 80 }}>
-                <Typography variant="h6">Total RB</Typography>
-                <Typography variant="body1">179</Typography>
-              </div>
+      <Container maxWidth="xl">
+        <StyledHeading variant="h4">
+          RB DASHBOARD
+        </StyledHeading>
+
+        <Grid container spacing={3}>
+          {[
+            { title: "Total RB", total: 179, color: "warning" },
+            { title: "In-Progress", total: 2, color: "info" },
+            { title: "Hold", total: 79, color: "warning" },
+            { title: "Done", total: 120, color: "success" },
+            { title: "Last Month", total: 35, color: "error" },
+            { title: "This Year", total: 234, color: "status" }
+          ].map((item, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <HoverPaper elevation={3}>
+                <AppWidgetSummary title={item.title} total={item.total} color={item.color} />
+              </HoverPaper>
             </Grid>
-            <Grid item xs={4}>
-              <div style={{ backgroundColor: '#f5f5f5', padding: 80 }}>
-                <Typography variant="h6">In-Progress</Typography>
-                <Typography variant="body1">50</Typography>
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ backgroundColor: '#f5f5f5', padding: 80 }}>
-                <Typography variant="h6">Hold</Typography>
-                <Typography variant="body1">79</Typography>
-              </div>
-            </Grid>
-            {/* Second Row */}
-            <Grid item xs={4}>
-              <div style={{ backgroundColor: '#f5f5f5', padding: 80 }}>
-                <Typography variant="h6">Done</Typography>
-                <Typography variant="body1">120</Typography>
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ backgroundColor: '#f5f5f5', padding: 80 }}>
-                <Typography variant="h6">Last Month</Typography>
-                <Typography variant="body1">35</Typography>
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ backgroundColor: '#f5f5f5', padding: 80 }}>
-                <Typography variant="h6">This Year</Typography>
-                <Typography variant="body1">12</Typography>
-              </div>
-            </Grid>
-          </Grid>
-      {/* Conditionally rendered option buttons */}
+          ))}
+        </Grid>
+      </Container>
       {showOptions && (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button variant="contained" style={{ backgroundColor: '#8E1A86' }}>Create New RB</Button>
-          <Button variant="contained" style={{ backgroundColor: '#8E1A86' }}>Create IPP Query</Button>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+          <Button variant="contained" style={{ backgroundColor: "#8E1A86" }}>
+            Create New RB
+          </Button>
+          <Button variant="contained" style={{ backgroundColor: "#8E1A86" }}>
+            Create IPP Query
+          </Button>
         </div>
       )}
     </>

@@ -20,14 +20,20 @@ import Conversation from "./components/Conversation";
 import Login from "./components/Login/Login";
 import { OrdersProvider } from "./context/OrdersContext";
 import Sidebar from './components/SideBar/SideBar'
+import { NotificationProvider } from './context/NotificationContext'
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Badge from '@mui/material/Badge';
+import { useNotifications } from './context/NotificationContext';
 
 function App() {
   return (
     <OrdersProvider>
+    <NotificationProvider>  {/* Ensure that NotificationProvider wraps Router */}
       <Router>
         <AppContent />
       </Router>
-    </OrdersProvider>
+    </NotificationProvider>
+  </OrdersProvider>
   );
 }
 
@@ -36,6 +42,8 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation(); // Use useLocation() within the <Router> context
   const isLoginRoute = location.pathname === "/login";
+  const { notifications, clearNotifications } = useNotifications();
+
 
   return (
     <div style={{ display: "flex" }}>
@@ -62,6 +70,18 @@ function AppContent() {
                 Welcome {userName}!
               </Typography>
             </Toolbar>
+            <div>
+              <IconButton
+                onClick={() => {
+                  clearNotifications();
+                  navigate("/notifications");
+                }}
+                color="inherit"
+              >
+                <Badge badgeContent={notifications.length} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
             <IconButton
               onClick={() => {
                 localStorage.removeItem("userData");
@@ -71,6 +91,8 @@ function AppContent() {
             >
               <ExitToAppIcon style={{ fontSize: "48px" }} />
             </IconButton>
+            </div>
+
           </AppBar>
         )}
         <Routes>
