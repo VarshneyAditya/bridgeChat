@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -35,26 +35,26 @@ const CreateIssueButton = () => {
   );
 
 
-  const fetchAllUsers = async () => {
+  const fetchAllUsers = useCallback(async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/chats/fetchAllUsers`,
-        config
-      );
-      const { data: userData = [] } = response || {};
-      const userArray = userData.map((user) => ({
-        _id: user?._id,
-        name: user?.name,
-      }));
-      setUsers(userArray);
+        const response = await axios.get(
+            'http://localhost:3000/api/chats/fetchAllUsers',
+            config
+        );
+        const { data: userData = [] } = response || {};
+        const userArray = userData.map(user => ({
+            _id: user?._id,
+            name: user?.name,
+        }));
+        setUsers(userArray);
     } catch (error) {
-      console.error("Failed to fetch messages:", error);
+        console.error('Failed to fetch messages:', error);
     }
-  };
+}, [config]);
 
   useEffect(() => {
     fetchAllUsers();
-  });
+  }, [fetchAllUsers]);
 
   // Open the dialog box
   const handleClickOpen = () => {
