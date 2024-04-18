@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -18,8 +18,43 @@ const CreateIssueButton = () => {
     assignTo: "",
     describeIssue: "",
   });
-
+  const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState({});
+
+  const {
+    data: { token },
+  } = JSON.parse(localStorage.getItem("userData"));
+
+  const config = useMemo(
+    () => ({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+    [token]
+  );
+
+
+  const fetchAllUsers = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/chats/fetchAllUsers`,
+        config
+      );
+      const { data: userData = [] } = response || {};
+      const userArray = userData.map((user) => ({
+        _id: user?._id,
+        name: user?.name,
+      }));
+      setUsers(userArray);
+    } catch (error) {
+      console.error("Failed to fetch messages:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllUsers();
+  });
 
   // Open the dialog box
   const handleClickOpen = () => {
@@ -30,7 +65,11 @@ const CreateIssueButton = () => {
   const handleClose = () => {
     setOpen(false);
     setErrors({});
-    setFormData({ orderDetail: "", assignTo: "", describeIssue: "" });
+    setFormData({
+      orderDetail: "",
+      assignTo: "",
+      describeIssue: "",
+    });
   };
 
   // Handle form field changes
@@ -59,8 +98,13 @@ const CreateIssueButton = () => {
   const handleSubmit = async () => {
     if (validate()) {
       try {
-        await axios.post("http://localhost/abc", formData);
-        handleClose(); // Close the dialog on successful submission
+        const apiEndpoint = "http://localhost:3000/api/chats/conversation";
+        await axios.post(
+          apiEndpoint,
+          { userId: formData?.assignTo },
+          config
+        );
+        handleClose();
       } catch (error) {
         console.error("Error submitting the form:", error);
       }
@@ -103,11 +147,10 @@ const CreateIssueButton = () => {
               onChange={handleChange}
               label="Assign-to"
             >
-              <MenuItem value="Dispatch-group">Dispatch-group</MenuItem>
-              <MenuItem value="Saransh">Saransh</MenuItem>
-              <MenuItem value="Abhishek">Abhishek</MenuItem>
-              <MenuItem value="Aditya">Aditya</MenuItem>
-              <MenuItem value="Abrar">Abrar</MenuItem>
+              {users &&
+                users.map(({ name, _id }) => (
+                  <MenuItem key={_id} value={_id}>{name}</MenuItem>
+                ))}
             </Select>
             {errors.assignTo && <span>{errors.assignTo}</span>}
           </FormControl>
