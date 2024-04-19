@@ -120,7 +120,7 @@ const ChatView = () => {
     >
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4">Users</Typography>
+          <Typography variant="h4">Chat</Typography>
 
           <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
             Create Issue
