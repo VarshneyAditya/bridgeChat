@@ -1,0 +1,24 @@
+<svg width="100" height="66.6667" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+  <!-- Saffron band -->
+  <rect width="3" height="0.6667" fill="#FF9933" />
+  
+  <!-- White band -->
+  <rect y="0.6667" width="3" height="0.6667" fill="#FFFFFF" />
+  
+  <!-- Green band -->
+  <rect y="1.3333" width="3" height="0.6667" fill="#138808" />
+  
+  <!-- Ashoka Chakra (wheel) -->
+  <circle cx="1.5" cy="1" r="0.1" stroke="#000080" stroke-width="0.01" fill="none" />
+  <!-- Ashoka Chakra spokes -->
+  <g transform="translate(1.5,1)">
+    <g stroke="#000080" stroke-width="0.01">
+      <line x1="0" y1="-0.1" x2="0" y2="0.1" />
+      <line x1="-0.1" y1="0" x2="0.1" y2="0" />
+      <line x1="-0.0707" y1="-0.0707" x2="0.0707" y2="0.0707" />
+      <line x1="0.0707" y1="-0.0707" x2="-0.0707" y2="0.0707" />
+      <line x1="-0.1" y1="-0.1" x2="0.1" y2="0.1" />
+      <line x1="0.1" y1="-0.1" x2="-0.1" y2="0.1" />
+    </g>
+  </g>
+</svg>
