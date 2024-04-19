@@ -17,6 +17,7 @@ import {
   Avatar,
   Box,
   Button,
+  Card,
   Collapse,
   Container,
   Divider,
@@ -35,6 +36,7 @@ import {
 import Iconify from 'src/components/iconify';
 
 import { account } from '../../_mock/account';
+import { height } from '@mui/system';
 
 const ChatView = () => {
   const [chats, setChats] = useState([]);
@@ -114,21 +116,18 @@ const ChatView = () => {
   };
 
   return (
-    <Box
-      className="chat-app"
-      sx={{ height: '100vh', borderRadius: 2 }} // Set height and border radius
-    >
-      <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4">Chat</Typography>
+    <>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+        <Typography variant="h4">Chat</Typography>
 
-          <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-            Create Issue
-          </Button>
-        </Stack>
+        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+          Create Issue
+        </Button>
+      </Stack>
+      <Card sx={{ padding: '16px', height: '100%' }} >
         <Grid container spacing={2} style={{ height: '100vh' }}>
           {/* First column: Chat list */}
-          <Grid item xs={4} className="chat-list">
+          <Grid item xs={3} className="chat-list">
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <div style={{ position: 'relative' }}>
@@ -181,10 +180,10 @@ const ChatView = () => {
                 </List>
               </Paper>
             </Stack>
+            <Divider orientation="vertical" flexItem />
           </Grid>
-
           {/* Second column: Chat view */}
-          <Grid item xs={6} className="chat-view">
+          <Grid item xs={7} className="chat-view">
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Stack direction="row" alignItems="center" spacing={2}>
@@ -206,7 +205,7 @@ const ChatView = () => {
                   </IconButton>
                 </Stack>
               </Stack>
-              <Divider />
+              <Divider /> {/* Add Divider after the top stack */}
               <Stack spacing={2} style={{ flexGrow: 1, overflowY: 'auto' }}>
                 {messages.map((msg) => (
                   <Stack
@@ -221,6 +220,8 @@ const ChatView = () => {
                         padding: '10px 15px',
                         borderRadius: '20px',
                         maxWidth: '75%',
+                        backgroundColor:
+                          msg.sender === 'self' ? 'rgb(200, 250, 214)' : 'rgb(244, 246, 248)',
                       }}
                     >
                       <Typography variant="body2">{msg.text}</Typography>
@@ -231,6 +232,8 @@ const ChatView = () => {
                   </Stack>
                 ))}
               </Stack>
+              {/* Add Divider above send message input */}
+              <Divider />
               <Stack direction="row" alignItems="center" spacing={2}>
                 <IconButton>
                   <AttachFile />
@@ -251,7 +254,6 @@ const ChatView = () => {
               </Stack>
             </Stack>
           </Grid>
-
           {/* Third column: User info */}
           <Grid item xs={2} className="user-info">
             <Stack spacing={2} style={{ height: '100%' }}>
@@ -268,23 +270,7 @@ const ChatView = () => {
               <Paper style={{ padding: '16px', flexGrow: 1 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6">Information</Typography>
-                  <Divider />
-                  <Stack spacing={1}>
-                    <Typography variant="body2">Location</Typography>
-                    <Typography variant="body2">Phone</Typography>
-                    <Typography variant="body2">Email</Typography>
-                  </Stack>
-                  <Stack direction="row" justifyContent="flex-end">
-                    {infoExpanded ? (
-                      <IconButton onClick={() => setInfoExpanded(false)}>
-                        <ExpandLess />
-                      </IconButton>
-                    ) : (
-                      <IconButton onClick={() => setInfoExpanded(true)}>
-                        <ExpandMore />
-                      </IconButton>
-                    )}
-                  </Stack>
+
                   <Collapse in={infoExpanded}>
                     <Stack spacing={1}>
                       <Stack direction="row" alignItems="center">
@@ -313,13 +299,25 @@ const ChatView = () => {
                       </Stack>
                     </Stack>
                   </Collapse>
+                  <Divider />
+                  <Stack direction="row" justifyContent="flex-end">
+                    {infoExpanded ? (
+                      <IconButton onClick={() => setInfoExpanded(false)}>
+                        <ExpandLess />
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={() => setInfoExpanded(true)}>
+                        <ExpandMore />
+                      </IconButton>
+                    )}
+                  </Stack>
                 </Stack>
               </Paper>
             </Stack>
           </Grid>
         </Grid>
-      </Container>
-    </Box>
+      </Card>
+    </>
   );
 };
 
