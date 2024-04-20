@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -12,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
-
+import axios from 'axios';
 import { useRouter } from 'src/routes/hooks';
 
 import { bgGradient } from 'src/theme/css';
@@ -23,24 +24,40 @@ import Iconify from 'src/components/iconify';
 
 export default function LoginView() {
   const theme = useTheme();
-
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [data, setData] = useState({ name: '', password: '' });
 
-  const handleClick = () => {
-    router.push('/dashboard');
+  const handleLogin = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.post('http://localhost:3000/api/users/login', data, config);
+  
+      // Save user data to localStorage
+      localStorage.setItem('userData', JSON.stringify(response.data));
+  
+      router.push('/');
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error here
+    }
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField name="email" label="Email address" onChange={(e) => setData((prev) => ({ ...prev, name: e.target.value }))} />
 
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          onChange={(e) => setData((prev) => ({ ...prev, password: e.target.value }))}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -65,7 +82,7 @@ export default function LoginView() {
         type="submit"
         variant="contained"
         color="inherit"
-        onClick={handleClick}
+        onClick={handleLogin}
       >
         Login
       </LoadingButton>
@@ -91,7 +108,7 @@ export default function LoginView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign in to Minimal</Typography>
+          <Typography variant="h4">Sign in</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
             Don’t have an account?

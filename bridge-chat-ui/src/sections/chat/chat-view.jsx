@@ -83,7 +83,7 @@ const ChatView = () => {
 
   const generateDummyData = useMemo(
     () => () =>
-      Array.from({ length: 10 }, (_, idx) => ({
+      Array.from({ length: 20 }, (_, idx) => ({
         id: idx,
         name: faker.name.fullName(),
         avatarUrl: `/assets/images/avatars/avatar_${idx + 1}.jpg`,

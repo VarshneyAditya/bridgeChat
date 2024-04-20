@@ -7,10 +7,12 @@ import AppWidgetSummary from '../app-widget-summary';
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const { name = 'Welcome back'} = JSON.parse(localStorage.getItem("userData")) || {};
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, Welcome back 👋
+        Hi, {name} 👋
       </Typography>
 
       <Grid container spacing={3}>
