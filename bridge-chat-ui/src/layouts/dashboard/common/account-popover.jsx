@@ -34,6 +34,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const userName = JSON.parse(localStorage.getItem('userData'))?.name;
   const router = useRouter();
 
   const [open, setOpen] = useState(null);
@@ -95,7 +96,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {userName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {account.email}
