@@ -35,6 +35,8 @@ export default function UserPage() {
 
   const [filterName, setFilterName] = useState('');
 
+  const [filterTags, setFilterTags] = useState('');
+
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleSort = (event, id) => {
@@ -86,6 +88,11 @@ export default function UserPage() {
     setFilterName(event.target.value);
   };
 
+  const handleFilterByTags = (event) => {
+    setPage(0);
+    setFilterTags(event.target.value);
+  };
+
   const dataFiltered = applyFilter({
     inputData: users,
     comparator: getComparator(order, orderBy),
@@ -97,7 +104,7 @@ export default function UserPage() {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+        <Typography variant="h4">Search Users</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
           New User
@@ -105,11 +112,21 @@ export default function UserPage() {
       </Stack>
 
       <Card>
+        <div style={{display: 'flex'}}>
         <UserTableToolbar
           numSelected={selected.length}
           filterName={filterName}
           onFilterName={handleFilterByName}
+          placeHolder='serach users'
         />
+
+        <UserTableToolbar
+          numSelected={selected.length}
+          filterName={filterTags}
+          onFilterName={handleFilterByTags}
+          placeHolder='serach with tags'
+        />
+        </div>
 
         <Scrollbar>
           <TableContainer sx={{ overflow: 'unset' }}>
