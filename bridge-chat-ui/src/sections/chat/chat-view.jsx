@@ -142,11 +142,11 @@ const ChatView = () => {
 
   return (
     <>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} sx={{margin: "5px 31px 35px 31px"}}>
         <Typography variant="h4">Chat</Typography>
         <CreateIssueButton token={token}/>
       </Stack>
-      <Card sx={{ padding: '16px 0px 0px 30px', marginLeft: '25px' }}>
+      <Card sx={{ padding: '16px 0px 0px 30px', margin: '0px 24px 0px 24px'}}>
         <Grid container spacing={2} style={{ height: '70vh' }}>
           {/* First column: Chat list */}
           <Grid item xs={3} className="chat-list" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
