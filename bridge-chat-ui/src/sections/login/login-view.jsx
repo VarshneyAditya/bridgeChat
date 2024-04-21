@@ -51,7 +51,7 @@ export default function LoginView() {
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" onChange={(e) => setData((prev) => ({ ...prev, name: e.target.value }))} />
+        <TextField name="email" label="User name" onChange={(e) => setData((prev) => ({ ...prev, name: e.target.value }))} />
 
         <TextField
           name="password"

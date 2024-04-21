@@ -118,7 +118,7 @@ const CreateIssueButton = ({ token }) => {
             autoFocus
             margin="dense"
             id="orderDetail"
-            label="Order-detail"
+            label="SKU/Barcode/Order-Id"
             type="text"
             name="orderDetail"
             value={formData.orderDetail}
