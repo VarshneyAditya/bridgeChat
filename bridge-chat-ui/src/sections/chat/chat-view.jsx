@@ -32,11 +32,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import axios from 'axios';
 
 import Iconify from 'src/components/iconify';
 
 import { account } from '../../_mock/account';
-import { height } from '@mui/system';
 
 const ChatView = () => {
   const [chats, setChats] = useState([]);
@@ -45,7 +45,48 @@ const ChatView = () => {
   const [messages, setMessages] = useState([]);
   const [infoExpanded, setInfoExpanded] = useState(false);
 
-  // Define dummy messages for some users
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  const { token, _id: userId } = userData;
+
+  useEffect(() => {
+    const fetchConversations = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data = [] } = await axios.get(
+          "http://localhost:3000/api/chats/conversation",
+          config
+        );
+
+        const chat = data.map((item, index) => (
+          item.isGroupChat
+            ? null
+            : {
+              id: index,
+              name: userId === item.users[0]._id ? item.users[1].name : item.users[0].name,
+              avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
+              lastMessage: item.latestMessage?.content || 'no messages',
+              online: Math.random() > 0.5,
+              lastActive: item.latestMessage?.content ? faker.date.recent().toLocaleTimeString() : '',
+            }
+        )).filter(Boolean);
+        
+        console.log(chat);
+        
+        setChats(chat);
+      } catch (error) {
+        console.error("Error fetching conversations:", error);
+      }
+    };
+
+    fetchConversations();
+  }, [token]);
+
   const dummyMessages = useMemo(
     () => ({
       0: [
@@ -80,23 +121,6 @@ const ChatView = () => {
     }),
     []
   );
-
-  const generateDummyData = useMemo(
-    () => () =>
-      Array.from({ length: 20 }, (_, idx) => ({
-        id: idx,
-        name: faker.name.fullName(),
-        avatarUrl: `/assets/images/avatars/avatar_${idx + 1}.jpg`,
-        lastMessage: faker.lorem.sentence(),
-        online: Math.random() > 0.5,
-        lastActive: faker.date.recent().toLocaleTimeString(),
-      })),
-    []
-  );
-
-  useEffect(() => {
-    setChats(generateDummyData());
-  }, [generateDummyData]);
 
   useEffect(() => {
     setMessages(dummyMessages[selectedChat?.id] || []);
