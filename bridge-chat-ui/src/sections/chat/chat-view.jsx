@@ -37,6 +37,7 @@ import axios from 'axios';
 import Iconify from 'src/components/iconify';
 
 import { account } from '../../_mock/account';
+import CreateIssueButton from 'src/components/create-issue/createIssueButton';
 
 const ChatView = () => {
   const [chats, setChats] = useState([]);
@@ -143,10 +144,7 @@ const ChatView = () => {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Chat</Typography>
-
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          Create Issue
-        </Button>
+        <CreateIssueButton token={token}/>
       </Stack>
       <Card sx={{ padding: '16px 0px 0px 30px', marginLeft: '25px' }}>
         <Grid container spacing={2} style={{ height: '70vh' }}>
