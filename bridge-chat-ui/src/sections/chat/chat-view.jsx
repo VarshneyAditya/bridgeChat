@@ -124,10 +124,10 @@ const ChatView = () => {
           Create Issue
         </Button>
       </Stack>
-      <Card sx={{ padding: '16px', height: '100%' }} >
-        <Grid container spacing={2} style={{ height: '100vh' }}>
+      <Card sx={{ padding: '16px 0px 0px 30px', marginLeft: '25px' }}>
+        <Grid container spacing={2} style={{ height: '70vh' }}>
           {/* First column: Chat list */}
-          <Grid item xs={3} className="chat-list">
+          <Grid item xs={3} className="chat-list" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <div style={{ position: 'relative' }}>
@@ -183,7 +183,7 @@ const ChatView = () => {
             <Divider orientation="vertical" flexItem />
           </Grid>
           {/* Second column: Chat view */}
-          <Grid item xs={7} className="chat-view">
+          <Grid item xs={6} className="chat-view" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Stack direction="row" alignItems="center" spacing={2}>
@@ -191,10 +191,12 @@ const ChatView = () => {
                     <Avatar alt={selectedChat?.name} src={selectedChat?.avatarUrl} />
                     <div className={`online-dot ${selectedChat?.online ? 'online' : 'offline'}`} />
                   </div>
-                  <Typography variant="h6">{selectedChat?.name}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {selectedChat?.online ? 'Online' : 'Offline'}
-                  </Typography>
+                  <div>
+                    <Typography variant="h6">{selectedChat?.name}</Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {selectedChat?.online ? 'Online' : 'Offline'}
+                    </Typography>
+                  </div>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={2}>
                   <IconButton>
@@ -255,7 +257,7 @@ const ChatView = () => {
             </Stack>
           </Grid>
           {/* Third column: User info */}
-          <Grid item xs={2} className="user-info">
+          <Grid item xs={3} className="user-info" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Avatar alt={selectedChat?.name} src={selectedChat?.avatarUrl} />
