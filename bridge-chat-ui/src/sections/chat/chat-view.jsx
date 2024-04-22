@@ -124,7 +124,22 @@ const ChatView = () => {
     // setMessages(dummyMessages[selectedChat?.id] || []);
   }, [chatId]);
 
-  const handleSendMessage = () => {
+  const sendMessage = async (msgContent) => {
+    try {
+      await axios.post(
+        `http://localhost:3000/api/messages`,
+        {
+          content: msgContent,
+          chatId
+        },
+        config
+      );
+    } catch (error) {
+      console.error("Failed to fetch messages:", error);
+    }
+  };
+
+  const handleSendMessage = async () => {
     if (message.trim() !== '') {
       const newMessage = {
         id: Date.now(),
@@ -132,6 +147,7 @@ const ChatView = () => {
         sender: 'self',
         time: new Date().toLocaleTimeString(),
       };
+      await sendMessage(message);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessage('');
     }
