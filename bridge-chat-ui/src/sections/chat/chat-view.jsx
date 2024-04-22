@@ -41,23 +41,25 @@ import CreateIssueButton from 'src/components/create-issue/createIssueButton';
 
 const ChatView = () => {
   const [chats, setChats] = useState([]);
-  const [selectedChat, setSelectedChat] = useState(chats[0]);
+  const [selectedChat, setSelectedChat] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [infoExpanded, setInfoExpanded] = useState(false);
+  const [chatId, setChatId] = useState('');
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   const { token, _id: userId } = userData;
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   useEffect(() => {
     const fetchConversations = async () => {
       try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
 
         const { data = [] } = await axios.get(
           "http://localhost:3000/api/chats/conversation",
@@ -65,6 +67,7 @@ const ChatView = () => {
         );
 
         const chat = data.map((item, index) => {
+          const chatId = item._id;
           const isGroupChat = item.isGroupChat;
           const chatName = isGroupChat ? item.chatName : (userId === item.users[0]._id ? item.users[1].name : item.users[0].name);
           const lastMessageContent = item.latestMessage?.content || 'no messages';
@@ -73,6 +76,7 @@ const ChatView = () => {
         
           return {
             id: index,
+            chatId,
             name: chatName,
             avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
             lastMessage: lastMessageContent,
@@ -92,44 +96,39 @@ const ChatView = () => {
     fetchConversations();
   }, [token]);
 
-  const dummyMessages = useMemo(
-    () => ({
-      0: [
-        {
-          id: 1,
-          text: 'Hello! How are you?',
-          sender: 'other',
-          time: '12:00 PM',
-        },
-        {
-          id: 2,
-          text: 'I am good, thank you! How about you?',
-          sender: 'self',
-          time: '12:02 PM',
-        },
-      ],
-      1: [
-        {
-          id: 3,
-          text: "Hey! What's up?",
-          sender: 'other',
-          time: '11:45 AM',
-        },
-        {
-          id: 4,
-          text: 'Not much, just relaxing.',
-          sender: 'self',
-          time: '11:47 AM',
-        },
-      ],
-      // Add more dummy messages for other users as needed
-    }),
-    []
-  );
-
   useEffect(() => {
-    setMessages(dummyMessages[selectedChat?.id] || []);
-  }, [selectedChat, dummyMessages]);
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/messages/${chatId}`,
+          config
+        );
+        const { data } = response;
+        const msg = data.map((message) => {
+          const senderId = message?.sender?._id;
+          const sender = (userId === senderId) ? 'self' : 'other';
+          const text = message.content;
+          // Assuming time is not provided in the original data, you can use a placeholder or format the timestamp if available
+          const time = message.updatedAt; // Replace with the actual timestamp if available
+          
+          return {
+            id: message._id,
+            text: text,
+            sender: sender,
+            time: time,
+          };
+        });
+        setMessages(msg);
+        // setLoaded(true);
+        // socket.emit("join chat", chatId);
+      } catch (error) {
+        console.error("Failed to fetch messages:", error);
+      }
+    };
+
+    fetchMessages();
+    // setMessages(dummyMessages[selectedChat?.id] || []);
+  }, [chatId]);
 
   const handleSendMessage = () => {
     if (message.trim() !== '') {
@@ -175,8 +174,8 @@ const ChatView = () => {
                     <ListItem
                       key={chat.id}
                       button
-                      selected={chat.id === selectedChat?.id}
-                      onClick={() => setSelectedChat(chat)}
+                      // selected={chat._id === selectedChat}
+                      onClick={() => setChatId(chat.chatId)}
                     >
                       <ListItemAvatar>
                         <div style={{ position: 'relative' }}>
