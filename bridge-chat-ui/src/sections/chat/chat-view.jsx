@@ -64,18 +64,22 @@ const ChatView = () => {
           config
         );
 
-        const chat = data.map((item, index) => (
-          item.isGroupChat
-            ? null
-            : {
-              id: index,
-              name: userId === item.users[0]._id ? item.users[1].name : item.users[0].name,
-              avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
-              lastMessage: item.latestMessage?.content || 'no messages',
-              online: Math.random() > 0.5,
-              lastActive: item.latestMessage?.content ? faker.date.recent().toLocaleTimeString() : '',
-            }
-        )).filter(Boolean);
+        const chat = data.map((item, index) => {
+          const isGroupChat = item.isGroupChat;
+          const chatName = isGroupChat ? item.chatName : (userId === item.users[0]._id ? item.users[1].name : item.users[0].name);
+          const lastMessageContent = item.latestMessage?.content || 'no messages';
+          const online = Math.random() > 0.5;
+          const lastActive = item.latestMessage?.content ? faker.date.recent().toLocaleTimeString() : '';
+        
+          return {
+            id: index,
+            name: chatName,
+            avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
+            lastMessage: lastMessageContent,
+            online: online,
+            lastActive: lastActive,
+          };
+        }).filter(Boolean);        
         
         console.log(chat);
         
