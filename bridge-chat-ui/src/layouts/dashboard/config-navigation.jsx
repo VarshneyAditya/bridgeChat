@@ -37,6 +37,12 @@ const navConfig = [
   //   path: '/login',
   //   icon: icon('ic_lock'),
   // },
+  
+  {
+    title: 'Product Search',
+    path: '/product-search',
+    icon: icon('find-in-page'),
+  },
   // {
   //   title: 'Not found',
   //   path: '/404',

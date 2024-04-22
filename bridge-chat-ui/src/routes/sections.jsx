@@ -56,6 +56,18 @@ export default function Router() {
           )
         }
       />
+      <Route
+        path="product-search"
+        element={
+          isAuthenticated ? (
+            <DashboardLayout>
+              <BlogPage />
+            </DashboardLayout>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
 
       {/* Public routes */}
       <Route path="login" element={<LoginPage />} />

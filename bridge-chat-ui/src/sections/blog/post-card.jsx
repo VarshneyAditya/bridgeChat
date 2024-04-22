@@ -18,13 +18,22 @@ import SvgColor from 'src/components/svg-color';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
+  console.log("Post" + JSON.stringify(post));
   const { cover, title, view, comment, share, author, createdAt } = post;
 
   const latestPostLarge = index === 0;
 
   const latestPost = index === 1 || index === 2;
 
+  const qaList = [
+    { question: "What is the material of this jewelry?", answer: "This piece is made from 18k gold." },
+    { question: "Are the gems real diamonds?", answer: "Yes, the gems are real diamonds, certified for quality." },
+    // More Q&A pairs...
+  ];
+  
+
   const renderAvatar = (
+    <>
     <Avatar
       alt={author.name}
       src={author.avatarUrl}
@@ -35,7 +44,7 @@ export default function PostCard({ post, index }) {
         position: 'absolute',
         left: (theme) => theme.spacing(3),
         bottom: (theme) => theme.spacing(-2),
-        ...((latestPostLarge || latestPost) && {
+        ...({
           zIndex: 9,
           top: 24,
           left: 24,
@@ -44,6 +53,58 @@ export default function PostCard({ post, index }) {
         }),
       }}
     />
+    <Link
+      variant="body2"
+      sx={{
+        position: 'absolute',
+        zIndex: 8,
+        width: 32,
+        height: 32,
+        bottom: (theme) => theme.spacing(-2),
+        left: (theme) => theme.spacing(5),
+        color: '#000', // You can adjust the color
+        background: '#fff', // Background color for contrast
+        padding: '2px 8px', // Adjust padding as needed
+        borderRadius: '4px', // Optional: Add border radius
+        ...({
+          zIndex: 8,
+          top: 24,
+          left: 70,
+          width: 90,
+          height: 40,
+        }),
+      }}
+    >
+      {author.name}
+    </Link>
+    </>
+  );
+
+  const renderQA = ({ qaList }) => (
+    <Box
+    
+     color="inherit"
+      variant="subtitle2"
+      underline="hover"
+      sx={{
+        height: 120,
+        overflow: 'hidden',
+        WebkitLineClamp: 2,
+        display: '-webkit-box',
+        WebkitBoxOrient: 'vertical'
+
+      }}>
+      {qaList.map((item, index) => (
+        <Box key={index} sx={{ marginBottom: 2 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+            Store: {item.question}
+          </Typography>
+          <Typography variant="body1" sx={{ marginLeft: 1 }}>
+            Inventory: {item.answer}
+          </Typography>
+        </Box>
+      ))}
+    </Box>
   );
 
   const renderTitle = (
@@ -56,11 +117,8 @@ export default function PostCard({ post, index }) {
         overflow: 'hidden',
         WebkitLineClamp: 2,
         display: '-webkit-box',
-        WebkitBoxOrient: 'vertical',
-        ...(latestPostLarge && { typography: 'h5', height: 60 }),
-        ...((latestPostLarge || latestPost) && {
-          color: 'common.white',
-        }),
+        WebkitBoxOrient: 'vertical'
+
       }}
     >
       {title}
@@ -120,11 +178,18 @@ export default function PostCard({ post, index }) {
       variant="caption"
       component="div"
       sx={{
-        mb: 2,
-        color: 'text.disabled',
-        ...((latestPostLarge || latestPost) && {
-          opacity: 0.48,
-          color: 'common.white',
+        zIndex: 9,
+        width: 32,
+        height: 32,
+        position: 'absolute',
+        right: (theme) => theme.spacing(3),
+        bottom: (theme) => theme.spacing(-2),
+        ...({
+          zIndex: 9,
+          top: 24,
+          right: 24,
+          width: 80,
+          height: 20,
         }),
       }}
     >
@@ -149,9 +214,9 @@ export default function PostCard({ post, index }) {
   );
 
   return (
-    <Grid xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
+    <Grid item xs={12} sm={6} md={12}>
       <Card>
-        <Box
+        {/* <Box
           sx={{
             position: 'relative',
             pt: 'calc(100% * 3 / 4)',
@@ -179,25 +244,31 @@ export default function PostCard({ post, index }) {
           {renderAvatar}
 
           {renderCover}
-        </Box>
+        </Box> */}
 
+        <Box  sx={{
+            position: 'relative',
+            pt: 'calc(100% * 1 / 5)',
+            }}>
+              
+           { renderAvatar }
+           { renderDate } 
+        </Box>
         <Box
           sx={{
             p: (theme) => theme.spacing(4, 3, 3, 3),
-            ...((latestPostLarge || latestPost) && {
+            ...({
               width: 1,
               bottom: 0,
               position: 'absolute',
             }),
           }}
         >
-          {renderDate}
-
-          {renderTitle}
-
-          {renderInfo}
+        {renderQA({ qaList })}
+        {/* {renderInfo} */}
         </Box>
       </Card>
+      
     </Grid>
   );
 }
