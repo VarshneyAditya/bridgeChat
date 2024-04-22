@@ -29,6 +29,7 @@ export default function Router() {
         { path: 'chat', element: <ChatPage />},
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'product-search', element: <BlogPage /> }
       ],
     },
     {
