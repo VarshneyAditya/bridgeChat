@@ -15,11 +15,8 @@ import {
 } from '@mui/icons-material';
 import {
   Avatar,
-  Box,
-  Button,
   Card,
   Collapse,
-  Container,
   Divider,
   Grid,
   IconButton,
@@ -34,14 +31,14 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-import Iconify from 'src/components/iconify';
 
 import { account } from '../../_mock/account';
 import CreateIssueButton from 'src/components/create-issue/createIssueButton';
+import { convertTo12HourFormat } from './helper';
 
 const ChatView = () => {
   const [chats, setChats] = useState([]);
-  const [selectedChat, setSelectedChat] = useState('');
+  const [selectedChat, setSelectedChat] = useState(chats[0]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [infoExpanded, setInfoExpanded] = useState(false);
@@ -83,9 +80,7 @@ const ChatView = () => {
             online: online,
             lastActive: lastActive,
           };
-        }).filter(Boolean);        
-        
-        console.log(chat);
+        }).filter(Boolean);
         
         setChats(chat);
       } catch (error) {
@@ -108,8 +103,7 @@ const ChatView = () => {
           const senderId = message?.sender?._id;
           const sender = (userId === senderId) ? 'self' : 'other';
           const text = message.content;
-          // Assuming time is not provided in the original data, you can use a placeholder or format the timestamp if available
-          const time = message.updatedAt; // Replace with the actual timestamp if available
+          const time = message.updatedAt ? convertTo12HourFormat(message.updatedAt) : '';
           
           return {
             id: message._id,
@@ -126,7 +120,7 @@ const ChatView = () => {
       }
     };
 
-    fetchMessages();
+    if (chatId) fetchMessages();
     // setMessages(dummyMessages[selectedChat?.id] || []);
   }, [chatId]);
 
@@ -174,8 +168,11 @@ const ChatView = () => {
                     <ListItem
                       key={chat.id}
                       button
-                      // selected={chat._id === selectedChat}
-                      onClick={() => setChatId(chat.chatId)}
+                      selected={chat.id === selectedChat?.id}
+                      onClick={() => {
+                        setChatId(chat.chatId);
+                        setSelectedChat(chat);
+                      }}
                     >
                       <ListItemAvatar>
                         <div style={{ position: 'relative' }}>
