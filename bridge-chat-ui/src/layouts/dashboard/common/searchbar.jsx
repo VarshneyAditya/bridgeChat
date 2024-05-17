@@ -110,12 +110,12 @@ export default function Searchbar() {
   };
 
   const handleInputChange = (event) => {
-    const value = event.target.value;
+    const value = event.target.value.toLowerCase();
     setQuery(value);
 
     if (value) {
       const filtered = dummyData.filter(item =>
-        item.data.toLowerCase().includes(value.toLowerCase())
+        item.data.toLowerCase().includes(value) || item.category.toLowerCase().includes(value)
       );
       setFilteredData(filtered);
     } else {
@@ -172,7 +172,7 @@ export default function Searchbar() {
                     <ListItem key={index} button>
                       <ListItemText
                         primary={highlightText(item.data, query)}
-                        secondary={item.category}
+                        secondary={highlightText(item.category, query)}
                       />
                     </ListItem>
                   ))}
