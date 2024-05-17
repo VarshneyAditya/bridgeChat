@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -101,7 +100,7 @@ export default function Searchbar() {
   const [filteredData, setFilteredData] = useState([]);
 
   const handleOpen = () => {
-    setOpen(!open);
+    setOpen(true);
   };
 
   const handleClose = () => {
@@ -147,26 +146,24 @@ export default function Searchbar() {
         )}
 
         <Slide direction="down" in={open} mountOnEnter unmountOnExit>
-          <div>
-            <StyledSearchbar>
-              <Input
-                autoFocus
-                fullWidth
-                disableUnderline
-                placeholder="Search…"
-                value={query}
-                onChange={handleInputChange}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <Iconify
-                      icon="eva:search-fill"
-                      sx={{ color: 'text.disabled', width: 20, height: 20 }}
-                    />
-                  </InputAdornment>
-                }
-                sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
-              />
-            </StyledSearchbar>
+          <StyledSearchbar>
+            <Input
+              autoFocus
+              fullWidth
+              disableUnderline
+              placeholder="Search…"
+              value={query}
+              onChange={handleInputChange}
+              startAdornment={
+                <InputAdornment position="start">
+                  <Iconify
+                    icon="eva:search-fill"
+                    sx={{ color: 'text.disabled', width: 20, height: 20 }}
+                  />
+                </InputAdornment>
+              }
+              sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
+            />
 
             {filteredData.length > 0 && (
               <StyledDropdown>
@@ -182,7 +179,7 @@ export default function Searchbar() {
                 </List>
               </StyledDropdown>
             )}
-          </div>
+          </StyledSearchbar>
         </Slide>
       </div>
     </ClickAwayListener>
