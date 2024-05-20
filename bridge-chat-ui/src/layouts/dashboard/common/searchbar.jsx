@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
@@ -11,6 +11,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
 
 import { bgBlur } from 'src/theme/css';
 
@@ -41,44 +42,6 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   },
 }));
 
-const dummyData = [
-  {
-    category: 'IPP',
-    data: 'Query Stuck Issue',
-    meta: {
-      IPP: ['Query Stuck Issue', 'Whatsapp Trigger Issue', 'Product Queries Not Loading'],
-    },
-  },
-  {
-    category: 'JS000041',
-    data: 'SKU Not Available',
-    meta: {
-      SKU: ['SKU Not Available'],
-    },
-  },
-  {
-    category: 'E-Certificate',
-    data: 'Image Not Found',
-    meta: {
-      'E-Certificate': ['Image Not Found', 'Barcode Not Available', 'Certificate Not Available'],
-    },
-  },
-  {
-    category: 'Invoicing',
-    data: 'Order Sync Issue',
-    meta: {
-      Invoicing: ['Order Sync Issue', 'Invoice Failed', 'Pandcard Not Uploaded', 'Payment Info Not Present'],
-    },
-  },
-  {
-    category: 'LTV/LTE/LTB',
-    data: 'CX is Not Able to See the LTV Value',
-    meta: {
-      'LTV/LTE/LTB': ['CX is Not Able to See the LTV Value', 'LTV Calculation API Failing', 'Multiple Entries'],
-    },
-  },
-];
-
 const StyledDropdown = styled(Paper)(({ theme }) => ({
   position: 'absolute',
   top: HEADER_MOBILE,
@@ -98,6 +61,7 @@ export default function Searchbar() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const [elasticSearch, setElasticSearch] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -109,12 +73,31 @@ export default function Searchbar() {
     setFilteredData([]);
   };
 
+  useEffect(() => {
+    const fetchSearchData = async () => {
+      console.log(' I am here');
+      try {
+        const response = await axios.get('http://localhost:3000/get-elasticsearch-data');
+        const dummy = response.data.hits.hits.map(hit => ({
+          category: hit._source.category,
+          data: hit._source.data,
+          meta: hit._source.meta
+      }));
+      setElasticSearch(dummy);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSearchData();
+  }, []);
+
   const handleInputChange = (event) => {
     const value = event.target.value.toLowerCase();
     setQuery(value);
 
     if (value) {
-      const filtered = dummyData.filter(item =>
+      const filtered = elasticSearch.filter(item =>
         item.data.toLowerCase().includes(value) || item.category.toLowerCase().includes(value)
       );
       setFilteredData(filtered);
