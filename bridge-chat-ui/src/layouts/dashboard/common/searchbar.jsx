@@ -77,7 +77,7 @@ export default function Searchbar() {
     const fetchSearchData = async () => {
       console.log(' I am here');
       try {
-        const response = await axios.get('http://localhost:3000/get-elasticsearch-data');
+        const response = await axios.get('http://localhost:3000/api/search');
         const dummy = response.data.hits.hits.map(hit => ({
           category: hit._source.category,
           data: hit._source.data,
