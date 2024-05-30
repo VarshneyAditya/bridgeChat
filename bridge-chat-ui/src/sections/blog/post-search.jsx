@@ -12,7 +12,7 @@ PostSearch.propTypes = {
   posts: PropTypes.array.isRequired,
 };
 
-export default function PostSearch({ posts }) {
+export default function PostSearch({ posts, searchQuery, setSearchQuery }) {
   return (
     <Autocomplete
       sx={{ width: 280 }}
@@ -46,6 +46,8 @@ export default function PostSearch({ posts }) {
               </InputAdornment>
             ),
           }}
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
         />
       )}
     />

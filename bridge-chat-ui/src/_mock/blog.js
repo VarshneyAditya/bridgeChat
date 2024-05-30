@@ -40,7 +40,7 @@ const POST_TITLES = [
 //   favorite: faker.number.int(99999),
 //   author: {
 //     name: faker.person.fullName(),
-//     avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
+//     avatarUrl: `/assets/images/products/avatar_${index + 1}.jpg`,
 //   },
 // }));
 
@@ -49,52 +49,90 @@ export const posts =[{
     "id": "04e7f034-776d-4b87-a91a-9697e738c254",
     "cover": "/assets/images/covers/cover_19.jpg",
     "title": "Cx want this in 14kt gh-si with size - 5.5 inches with 3 rings need pricing and sku to place order advance collected.?",
-    "createdAt": "2023-09-09T12:06:20.709Z",
+    "createdAt": "2024-05-14",
     "view": 98257,
     "comment": 87254,
     "share": 64518,
     "favorite": 22227,
     "author": {
-      "name": "JR05814",
-      "avatarUrl": "/assets/images/avatars/Sku_2.png"
-    }},
+      "name": "JE03565",
+      "avatarUrl": "/assets/images/products/JE03565.png"
+    },
+    "image": "/assets/images/products/JE03565.png"
+    },
     {
     "id": "04e7f034-776d-4b87-a91a-9697e738c254",
     "cover": "/assets/images/covers/cover_19.jpg",
-    "title": "Portfolio Review: Is This Portfolio Too Creative?",
-    "createdAt": "2023-09-09T12:06:20.709Z",
+    "title": "Cx requried in 14kt yellow gold ring size 14 pls share price details?",
+    "createdAt": "2024-05-12",
     "view": 98257,
     "comment": 87254,
     "share": 64518,
     "favorite": 22227,
     "author": {
-      "name": "UR00175",
-      "avatarUrl": "/assets/images/avatars/Sku_1.png"
-    }},
+      "name": "JL03666",
+      "avatarUrl": "/assets/images/products/JL03666.png"
+    },
+    "image":"/assets/images/products/JL03666.png"
+    },
     {
       "id": "04e7f034-776d-4b87-a91a-9697e738c254",
       "cover": "/assets/images/covers/cover_19.jpg",
-      "title": "Portfolio Review: Is This Portfolio Too Creative?",
-      "createdAt": "2023-09-09T12:06:20.709Z",
+      "title": "Please confirm if same can be made in solid from inside, please share pricing for size 20?",
+      "createdAt": "2024-05-13",
       "view": 98257,
       "comment": 87254,
       "share": 64518,
       "favorite": 22227,
       "author": {
-        "name": "JR06270",
-        "avatarUrl": "/assets/images/avatars/Sku_3.png"
-      }},
+        "name": "JP05256",
+        "avatarUrl": "/assets/images/products/JP05256.png"
+      },
+      "image":"/assets/images/products/JP05256.png"
+      },
       {
         "id": "04e7f034-776d-4b87-a91a-9697e738c254",
         "cover": "/assets/images/covers/cover_19.jpg",
-        "title": "Portfolio Review: Is This Portfolio Too Creative?",
-        "createdAt": "2023-09-09T12:06:20.709Z",
+        "title": "Cx wants same ring in glossy is it possible?",
+        "createdAt": "2024-05-13",
         "view": 98257,
         "comment": 87254,
         "share": 64518,
         "favorite": 22227,
         "author": {
-          "name": "JR05349",
-          "avatarUrl": "/assets/images/avatars/Sku_4.png"
-        }}
+          "name": "JR02625",
+          "avatarUrl": "/assets/images/products/JR02625.png"
+        },
+        "image": "/assets/images/products/JR02625.png"
+      },
+      {
+        "id": "04e7f034-776d-4b87-a91a-9697e738c254",
+        "cover": "/assets/images/covers/cover_19.jpg",
+        "title": "INTl CX Email snehalj1303@gmail.com Phone +16574419112. ***No advance required.*** Please share the SKU in size 20, 18KT yellow gold and diamond quality IJ-SI and GH-SI?",
+        "createdAt": "2024-05-14",
+        "view": 98257,
+        "comment": 87254,
+        "share": 64518,
+        "favorite": 22227,
+        "author": {
+          "name": "JR03647",
+          "avatarUrl": "/assets/images/products/JR03647.png"
+        },
+        "image": "/assets/images/products/JR03647.png"
+      },
+      {
+        "id": "04e7f034-776d-4b87-a91a-9697e738c254",
+        "cover": "/assets/images/covers/cover_19.jpg",
+        "title": "Can we make it in 18kt Yellow goldin 16 Ring size in diamond IJSI , and share methe price break up?",
+        "createdAt": "2024-05-14",
+        "view": 98257,
+        "comment": 87254,
+        "share": 64518,
+        "favorite": 22227,
+        "author": {
+          "name": "MR00630",
+          "avatarUrl": "/assets/images/products/MR00630.png"
+        },
+        "image": "/assets/images/products/MR00630.png"
+      },
 ]

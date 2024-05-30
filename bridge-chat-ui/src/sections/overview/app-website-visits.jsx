@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material/';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 
@@ -31,7 +31,7 @@ export default function AppWebsiteVisits({ title, subheader, chart, ...other }) 
       y: {
         formatter: (value) => {
           if (typeof value !== 'undefined') {
-            return `${value.toFixed(0)} visits`;
+            return `${value.toFixed(0)}`;
           }
           return value;
         },

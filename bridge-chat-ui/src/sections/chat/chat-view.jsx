@@ -1,6 +1,5 @@
 /* eslint-disable */
 import './chat.css';
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { faker } from '@faker-js/faker';
 import {
@@ -11,7 +10,7 @@ import {
   ExpandMore,
   AttachFile,
   ExpandLess,
-  InsertEmoticon,
+  InsertEmoticon
 } from '@mui/icons-material';
 import {
   Avatar,
@@ -28,21 +27,25 @@ import {
   Stack,
   TextField,
   Typography,
+  Popover,
+  MenuItem
 } from '@mui/material';
 import axios from 'axios';
+import Iconify from 'src/components/iconify';
 
 
 import { account } from '../../_mock/account';
 import CreateIssueButton from 'src/components/create-issue/createIssueButton';
 import { convertTo12HourFormat } from './helper';
 
-const ChatView = () => {
+const ChatView = ({ render = true}) => {
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(chats[0]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [infoExpanded, setInfoExpanded] = useState(false);
   const [chatId, setChatId] = useState('');
+  const [open, setOpen] = useState(null);
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -52,6 +55,15 @@ const ChatView = () => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  };
+
+
+  const handleOpenMenu = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setOpen(null);
   };
 
   useEffect(() => {
@@ -156,13 +168,13 @@ const ChatView = () => {
   return (
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} sx={{margin: "5px 31px 35px 31px"}}>
-        <Typography variant="h4">Chat</Typography>
-        <CreateIssueButton token={token}/>
+        {render && <Typography variant="h4">Chat</Typography>}
+        {render && <CreateIssueButton token={token}/>}
       </Stack>
       <Card sx={{ padding: '16px 0px 0px 30px', margin: '0px 24px 0px 24px'}}>
         <Grid container spacing={2} style={{ height: '70vh' }}>
           {/* First column: Chat list */}
-          <Grid item xs={3} className="chat-list" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
+          {render && <Grid item xs={3} className="chat-list" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <div style={{ position: 'relative' }}>
@@ -219,9 +231,9 @@ const ChatView = () => {
               </Paper>
             </Stack>
             <Divider orientation="vertical" flexItem />
-          </Grid>
+          </Grid>}
           {/* Second column: Chat view */}
-          <Grid item xs={6} className="chat-view" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
+          <Grid item xs={render ? 9 : 12} className="chat-view" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Stack direction="row" alignItems="center" spacing={2}>
@@ -240,9 +252,34 @@ const ChatView = () => {
                   <IconButton>
                     <Call />
                   </IconButton>
-                  <IconButton>
-                    <VideoCall />
+                   <IconButton onClick={handleOpenMenu}>
+                    <Iconify icon="eva:more-vertical-fill" />
                   </IconButton>
+                  <Popover
+                    open={!!open}
+                    anchorEl={open}
+                    onClose={handleCloseMenu}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    PaperProps={{
+                      sx: { width: 140 },
+                    }}
+                  >
+                    <MenuItem onClick={handleCloseMenu}>
+                      <Iconify icon="eva:plus-fill" sx={{ mr: 2 }} />
+                      Create RB
+                    </MenuItem>
+
+                    <MenuItem onClick={handleCloseMenu}>
+                      <Iconify icon="mdi:people-add"  sx={{ mr: 2 }} />
+                      Add People
+                    </MenuItem>
+
+                    <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
+                      <Iconify icon="carbon:close-filled" sx={{ mr: 2 }} />
+                      Close
+                    </MenuItem>
+                  </Popover>
                 </Stack>
               </Stack>
               <Divider /> {/* Add Divider after the top stack */}
@@ -295,7 +332,7 @@ const ChatView = () => {
             </Stack>
           </Grid>
           {/* Third column: User info */}
-          <Grid item xs={3} className="user-info" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
+          {/* <Grid item xs={3} className="user-info" sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)' }}>
             <Stack spacing={2} style={{ height: '100%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Avatar alt={selectedChat?.name} src={selectedChat?.avatarUrl} />
@@ -354,7 +391,7 @@ const ChatView = () => {
                 </Stack>
               </Paper>
             </Stack>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Card>
     </>

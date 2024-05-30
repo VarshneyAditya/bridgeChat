@@ -15,7 +15,7 @@ import Iconify from 'src/components/iconify';
 import PropTypes from 'prop-types';
 import InputLabel from '@mui/material/InputLabel';
 
-const CreateIssueButton = ({ token }) => {
+const CreateIssueButton = ({ token, boolean }) => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     orderDetail: '',
@@ -106,6 +106,7 @@ const CreateIssueButton = ({ token }) => {
   return (
     <div>
       <Button
+        disabled={boolean}
         onClick={handleClickOpen}
         variant="contained"
         color="inherit"

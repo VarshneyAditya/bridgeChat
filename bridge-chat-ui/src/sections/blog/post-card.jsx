@@ -5,6 +5,10 @@ import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import { ChatView } from 'src/sections/chat';
+
+
 import { alpha } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -17,7 +21,7 @@ import SvgColor from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
 
-export default function PostCard({ post, index }) {
+export default function PostCard({ post, onClick, index }) {
   console.log("Post" + JSON.stringify(post));
   const { cover, title, view, comment, share, author, createdAt } = post;
 
@@ -214,7 +218,7 @@ export default function PostCard({ post, index }) {
   );
 
   return (
-    <Grid item xs={12} sm={6} md={12}>
+    <Grid item xs={12} sm={6} md={12} onClick={onClick}>
       <Card>
         {/* <Box
           sx={{

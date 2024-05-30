@@ -37,6 +37,16 @@ export default function UserTableRow({
     setOpen(null);
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" >
@@ -53,15 +63,26 @@ export default function UserTableRow({
           </Stack>
         </TableCell> */}
 
-        <TableCell align="center" >{bugId}</TableCell>
+        <TableCell>{bugId}</TableCell>
 
         <TableCell>{title}</TableCell>
 
-        <TableCell align="center">{description}</TableCell>
+        <TableCell 
+          sx={{
+            whiteSpace: isHovered ? 'wrap':'nowrap',
+            textOverflow: 'ellipsis',
+            width: '200px',
+            display: 'block',
+            overflow: 'hidden',
+            transition: 'width 0.3s ease',
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >{description}</TableCell>
 
 
         <TableCell>
-          <Label color={(status === 'Open'  && 'error') || (status === "In Progress" && 'warning')|| 'success'}>{status}</Label>
+          <Label color={((status === 'banned' || status === 'Open' || status === 'UnAnswered') && 'error') || (status === "Answered" && 'warning')|| 'success'}>{status}</Label>
         </TableCell>
 
 

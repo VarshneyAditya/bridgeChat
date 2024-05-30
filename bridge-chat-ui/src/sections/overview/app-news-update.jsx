@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
+import { Box } from '@mui/material/';
+import {Link as MuiLink} from '@mui/material/';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -13,6 +13,7 @@ import { fToNow } from 'src/utils/format-time';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
+import { Link } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,8 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
       <Divider sx={{ borderStyle: 'dashed' }} />
 
       <Box sx={{ p: 2, textAlign: 'right' }}>
+        
+      <Link to="/product-search">
         <Button
           size="small"
           color="inherit"
@@ -39,6 +42,7 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
         >
           View all
         </Button>
+      </Link>
       </Box>
     </Card>
   );
@@ -53,29 +57,29 @@ AppNewsUpdate.propTypes = {
 // ----------------------------------------------------------------------
 
 function NewsItem({ news }) {
-  const { image, title, description, postedAt } = news;
+  const { image, title, description, author,  createdAt } = news;
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
       <Box
         component="img"
         alt={title}
-        src={image}
+        src={author?.avatarUrl}
         sx={{ width: 48, height: 48, borderRadius: 1.5, flexShrink: 0 }}
       />
 
       <Box sx={{ minWidth: 240, flexGrow: 1 }}>
-        <Link color="inherit" variant="subtitle2" underline="hover" noWrap>
-          {title}
-        </Link>
+        <MuiLink color="inherit" variant="subtitle2" underline="hover" noWrap>
+          {author?.name}
+        </MuiLink>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-          {description}
+          {title}
         </Typography>
       </Box>
 
       <Typography variant="caption" sx={{ pr: 3, flexShrink: 0, color: 'text.secondary' }}>
-        {fToNow(postedAt)}
+        {fToNow(createdAt)}
       </Typography>
     </Stack>
   );

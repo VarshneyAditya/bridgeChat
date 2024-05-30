@@ -39,7 +39,7 @@ const navConfig = [
   // },
   
   {
-    title: 'Product Search',
+    title: 'Bridge Communications',
     path: '/product-search',
     icon: icon('find-in-page'),
   },
