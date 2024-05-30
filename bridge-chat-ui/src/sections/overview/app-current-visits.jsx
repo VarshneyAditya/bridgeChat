@@ -28,7 +28,7 @@ const StyledChart = styled(Chart)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function AppCurrentVisits({ title, subheader, chart, ...other }) {
+export default function AppCurrentVisits({ title, type, subheader, chart, ...other }) {
   const theme = useTheme();
 
   const { colors, series, options } = chart;
@@ -78,13 +78,31 @@ export default function AppCurrentVisits({ title, subheader, chart, ...other }) 
     ...options,
   });
 
+  // const chartSeries = [44, 55, 41, 17, 15];
+  // const chartOptions = {
+  //   chart: {
+  //     type: 'donut',
+  //   },
+  //   responsive: [{
+  //     breakpoint: 480,
+  //     options: {
+  //       chart: {
+  //         width: 200
+  //       },
+  //       legend: {
+  //         position: 'bottom'
+  //       }
+  //     }
+  //   }]
+  // };
+
   return (
     <Card {...other}>
       <CardHeader title={title} subheader={subheader} sx={{ mb: 5 }} />
 
       <StyledChart
         dir="ltr"
-        type="pie"
+        type={type == "pie" ? "pie" : "donut"}
         series={chartSeries}
         options={chartOptions}
         width="100%"

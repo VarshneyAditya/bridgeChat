@@ -32,9 +32,10 @@ export default function useChart(options) {
     // Colors
     colors: [
       theme.palette.primary.main,
+      theme.palette.error.main,
+      theme.palette.success.main,
       theme.palette.warning.main,
       theme.palette.info.main,
-      theme.palette.error.main,
       theme.palette.success.main,
       theme.palette.warning.dark,
       theme.palette.success.darker,

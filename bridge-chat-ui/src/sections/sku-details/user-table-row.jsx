@@ -17,14 +17,15 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({
-  selected,
-  name,
-  avatarUrl,
-  company,
-  role,
-  isVerified,
+  bugId,
+  title,
+  description,
   status,
-  handleClick,
+  assignedTo,
+  reporter,
+  creationDate,
+  lastUpdated,
+  handleClick
 }) {
   const [open, setOpen] = useState(null);
 
@@ -36,31 +37,59 @@ export default function UserTableRow({
     setOpen(null);
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
+      <TableRow hover tabIndex={-1} role="checkbox" >
         <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={handleClick} />
+          <Checkbox disableRipple  onChange={handleClick} />
         </TableCell>
 
-        <TableCell component="th" scope="row" padding="none">
+        {/* <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
             <Typography variant="subtitle2" noWrap>
               {name}
             </Typography>
           </Stack>
-        </TableCell>
+        </TableCell> */}
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{bugId}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{title}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell 
+          sx={{
+            whiteSpace: isHovered ? 'wrap':'nowrap',
+            textOverflow: 'ellipsis',
+            width: '200px',
+            display: 'block',
+            overflow: 'hidden',
+            transition: 'width 0.3s ease',
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >{description}</TableCell>
+
 
         <TableCell>
-          <Label color={((status === 'banned' || status === 'Open' || status === 'UnAnswered') && 'error') || 'success'}>{status}</Label>
+          <Label color={((status === 'banned' || status === 'Open' || status === 'UnAnswered') && 'error') || (status === "Answered" && 'warning')|| 'success'}>{status}</Label>
         </TableCell>
+
+
+        <TableCell align="center">{assignedTo}</TableCell>
+        <TableCell align="center">{reporter}</TableCell>
+        <TableCell align="center">{creationDate}</TableCell>
+        <TableCell align="center">{lastUpdated}</TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -86,7 +115,7 @@ export default function UserTableRow({
 
         <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
           <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Close
+          Delete
         </MenuItem>
       </Popover>
     </>
@@ -94,12 +123,13 @@ export default function UserTableRow({
 }
 
 UserTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
-  company: PropTypes.any,
-  handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
-  name: PropTypes.any,
-  role: PropTypes.any,
-  selected: PropTypes.any,
+  bugId: PropTypes.any,
+  title: PropTypes.any,
+  description: PropTypes.any,
   status: PropTypes.string,
+  assignedTo: PropTypes.any,
+  reporter: PropTypes.any,
+  creationDate: PropTypes.any,
+  lastUpdated: PropTypes.any,
+  handleClick: PropTypes.func
 };

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material/';
 import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -31,9 +31,9 @@ export default function AppTrafficBySite({ title, subheader, list, ...other }) {
           >
             <Box sx={{ mb: 0.5 }}>{site.icon}</Box>
 
-            <Typography variant="h6">{fShortenNumber(site.value)}</Typography>
+            <Typography variant="h3">{fShortenNumber(site.value)}</Typography>
 
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
               {site.name}
             </Typography>
           </Paper>
